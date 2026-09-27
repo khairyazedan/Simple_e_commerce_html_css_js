@@ -105,8 +105,24 @@ const renderCategory = (categories) => {
   });
 
 };
+
 const renderCategoryFilters = (categories) => {
   const filterGroup = document.getElementById("categoryFilterGroup");
+  filterGroup.innerHTML = ""; // clear in case this ever re-runs
+
+  // --- "All" checkbox, added first, handled separately ---
+  const allLabel = document.createElement("label");
+  allLabel.classList.add("filter-checkbox");
+  allLabel.textContent = "All";
+  const allCheckbox = document.createElement("input");
+  allCheckbox.type = "checkbox";
+  allCheckbox.name = "category";
+  allCheckbox.value = "all";
+  allCheckbox.checked = true; //default
+
+  allLabel.appendChild(allCheckbox);
+  filterGroup.appendChild(allLabel);
+  const categoryCheckboxes = [];
 
   categories.forEach((category) => {
     const label = document.createElement("label");
@@ -119,8 +135,46 @@ const renderCategoryFilters = (categories) => {
 
     label.appendChild(checkbox);
     filterGroup.appendChild(label);
+    categoryCheckboxes.push(checkbox);
+  });
+
+  // Checking "All" clears every other category checkbox
+  allCheckbox.addEventListener("change", () => {
+    if (allCheckbox.checked) {
+      categoryCheckboxes.forEach((cb) => (cb.checked = false));
+    }
+  });
+
+  // unchecks "All"
+  categoryCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) {
+        allCheckbox.checked = false;
+      }
+      //fall back to "All"
+      const anyChecked = categoryCheckboxes.some((cb) => cb.checked);
+      if (!anyChecked) {
+        allCheckbox.checked = true;
+      }
+    });
   });
 };
+// const renderCategoryFilters = (categories) => {
+//   const filterGroup = document.getElementById("categoryFilterGroup");
+
+//   categories.forEach((category) => {
+//     const label = document.createElement("label");
+//     label.classList.add("filter-checkbox");
+//     label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+//     const checkbox = document.createElement("input");
+//     checkbox.type = "checkbox";
+//     checkbox.name = "category";
+//     checkbox.value = category;
+
+//     label.appendChild(checkbox);
+//     filterGroup.appendChild(label);
+//   });
+// };
 const filterBySearch = (products, term)=>{
   if(!term){
     return products;
@@ -427,9 +481,9 @@ const fetchProducts = async () => {
     currentFilteredProducts = products;
     currentPage = 1;
     displayPage(); 
-    const realCategories = [...new Set(products.map((item) => item.category))];
-    // renderCategory(['all', ...realCategories]);
-    renderCategoryFilters(realCategories); 
+    const categories = [...new Set(products.map((item) => item.category))];
+    // renderCategory(categories);         
+    renderCategoryFilters(categories); 
     
   } catch (error) {
     console.error("Failed to fetch products:", error);
