@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <!-- <link rel="icon" type="image/svg+xml" href="/favicon2.svg" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <a href="#" class="logo">Shop<span>Hub</span></a>
+
+      <div class="search-bar">
+        <!-- <select id="searchCategory" class="search-category">
+        </select> -->
+        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+        <button id="searchBtn" class="search-btn" aria-label="Search">🔍</button>
+      </div>
+
+      <button id="cartBtn" class="cart-btn">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-label">Cart</span>
+        <span id="cartCount" class="cart-count">0</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ===== Main layout ===== -->
+  <div class="page-layout">
+
+    <!-- Filters sidebar -->
+    <aside class="filters-sidebar">
+      <h2>Filters</h2>
+
+      <div class="filter-group">
+        <h3>Category</h3>
+        <div id="categoryFilterGroup">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Price</h3>
+        <div class="price-inputs">
+          <div class="price-field">
+            <label for="minPrice">Min</label>
+            <input type="number" id="minPrice" placeholder="$0" min="0">
+          </div>
+          <span class="price-separator">–</span>
+          <div class="price-field">
+            <label for="maxPrice">Max</label>
+            <input type="number" id="maxPrice" placeholder="$1000" min="0">
+          </div>
+        </div>
+      </div>
+
+      <button id="applyFiltersBtn" class="btn btn-primary btn-full">Apply Filters</button>
+      <button id="clearFiltersBtn" class="btn btn-link btn-full">Clear all</button>
+    </aside>
+
+    <!-- Products section -->
+    <main class="products-section">
+
+      <div class="results-bar">
+      </div>
+
+      <div id="productsGrid" class="products-grid">
+
+      </div>
+
+      <!-- Pagination -->
+      <div id="paginationContainer" class="pagination" aria-label="Product pages">
+        
+      </div>
+
+    </main>
+  </div>
+  <!-- product view details modal -->
+  <div id="productModal" class="modal-overlay">
+    <div class="modal product-modal">
+      <span id="closeProductModalBtn" class="modal-close">&times;</span>
+  
+      <div class="product-modal-body">
+        <div id="imageContainer" class="product-modal-image"></div>
+  
+        <div class="product-modal-info">
+          <p id="modalCategory" class="product-category"></p>
+          <h2 id="modalTitle" class="product-modal-title"></h2>
+          <div class="product-rating">
+            <span id="modalStars" class="stars"></span>
+            <span id="modalRatingValue" class="rating-value"></span>
+            <span id="modalRatingCount" class="rating-count"></span>
+          </div>
+          <p class="product-price large"><span id="modalPrice"></span></p>
+          <p id="modalDescription" class="product-modal-description"></p>
+  
+          <div class="qty-selector">
+           
+          </div>
+  
+          <button id="modalAddToCartBtn" class="btn btn-primary btn-full">Add to Cart</button>
+          <button id="modalBuyNowBtn" class="btn btn-accent btn-full">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Shopping Cart Side Panel ===== -->
+  <div id="cartOverlay" class="cart-overlay">
+    <aside id="cartPanel" class="cart-panel">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <span id="closeCartBtn" class="modal-close">&times;</span>
+      </div>
+
+      <div id="cartItems" class="cart-items">
+
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">$108.99</span>
+        </div>
+        <button id="checkoutBtn" class="btn btn-accent btn-full">Proceed to Checkout</button>
+      </div>
+    </aside>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
